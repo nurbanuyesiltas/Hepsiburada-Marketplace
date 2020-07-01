@@ -17,8 +17,6 @@ namespace Hepsiburada_Marketplace.Controllers
         //tekrar bakılacak
         public async Task<ResponseModel<TrackingData[]>> ProductImport([System.Web.Http.FromBody] ProductImportModel productImportModel)
         {
-            client.BaseAddress = new Uri("/product/api/products/import");
-
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = client.PostAsJsonAsync("/product/api/products/import", productImportModel)?.GetAwaiter().GetResult();
 
@@ -38,8 +36,7 @@ namespace Hepsiburada_Marketplace.Controllers
         [HttpGet, Route("GetAllCategory/{page}/{size}")]
         public async Task<ResponseModel<ProductStatusModel[]>> GetProductStatus(int page, int size, string trackingId)
         {
-            client.BaseAddress = new Uri("/product/api/products/status");
-
+       
             var response = client.GetAsync($"/product/api/products/status/{trackingId}?page={page}&size={size}").GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
             {
@@ -59,8 +56,6 @@ namespace Hepsiburada_Marketplace.Controllers
         public async Task<ResponseModel<TrackingIdHistoryModel[]>> GetTrackingIdHistory(int page, int size, int version, string sort)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("/product/api/products/trackingId-history");
-
             var response = httpClient.GetAsync($"/product/api/products/trackingId-history?version={version}&page={page}&size={size}&sort={sort}").GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
             {

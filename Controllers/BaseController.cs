@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
 
@@ -13,6 +14,9 @@ namespace Hepsiburada_Marketplace.Controllers
             _controller = new HepsiAuthController();
             client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _controller.GetToken().GetAwaiter().GetResult());
+
+            client.BaseAddress = new Uri("https://mpop.hepsiburada.com");
+
         }
     }
 }
